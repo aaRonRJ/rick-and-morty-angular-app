@@ -1,1 +1,16 @@
-<p>characters-card works!</p>
+<article class="card">
+  <figure>
+    <img [src]="character.image" [alt]="character.name" />
+  </figure>
+
+  <div class="card__detail">
+    <h3>{{ character.name }}</h3>
+    <ul class="card__list">
+      <li><label class="table__label">Status:</label>{{ character.status }}</li>
+      <li>
+        <label class="table__label">Species:</label>{{ character.species }}
+      </li>
+      <li><label class="table__label">Gender:</label>{{ character.gender }}</li>
+    </ul>
+  </div>
+</article>

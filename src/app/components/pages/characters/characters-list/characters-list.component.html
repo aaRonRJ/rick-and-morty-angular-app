@@ -1,1 +1,6 @@
-<p>characters-list works!</p>
+<section class="character__list">
+  <app-character-card
+    *ngFor="let character of characters$ | async"
+    [character]="character"
+  ></app-character-card>
+</section>

@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '@app/shared/services/data.service';
 
 @Component({
   selector: 'app-episodes',
-  templateUrl: './episodes.component.html',
-  styleUrls: ['./episodes.component.scss']
+  template: `
+    <section class="container">
+      <ul class="episodes__list">
+        <li *ngFor="let episode of episodes$ | async">
+          {{ episode.episode }} - {{ episode.name }}
+        </li>
+      </ul>
+    </section>
+  `,
+  styleUrls: ['./episodes.component.scss'],
 })
-export class EpisodesComponent implements OnInit {
+export class EpisodesComponent {
+  episodes$ = this.dataSvc.episodes$;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  constructor(private dataSvc: DataService) {}
 }

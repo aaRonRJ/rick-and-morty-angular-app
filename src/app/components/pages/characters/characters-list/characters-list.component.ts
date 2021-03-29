@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '@app/shared/services/data.service';
 
 @Component({
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
-  styleUrls: ['./characters-list.component.scss']
+  styleUrls: ['./characters-list.component.scss'],
 })
-export class CharactersListComponent implements OnInit {
+export class CharactersListComponent {
+  characters$ = this.dataSvc.characters$;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  constructor(private dataSvc: DataService) {}
 }
