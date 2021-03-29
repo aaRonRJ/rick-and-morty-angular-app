@@ -1,0 +1,24 @@
+<header>
+  <nav class="menu" role="navigation">
+    <div class="menu__toggle">
+      <input type="checkbox" id="checkMenu" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul class="navbar">
+        <li>
+          <a [routerLink]="['/home']" class="link-item">HOME</a>
+        </li>
+        <li>
+          <a [routerLink]="['/characters-list']" class="link-item">CHARACTERS</a>
+        </li>
+        <li>
+          <a [routerLink]="['/episodes']" class="link-item">EPISODES</a>
+        </li>
+        <li>
+          <a [routerLink]="['/about']" class="link-item">ABOUT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
