@@ -8,6 +8,7 @@ import {
   DataResponse,
   Episode,
 } from '@shared/interfaces/data.interface';
+import { LocalStorageService } from './localStorage.service';
 
 const QUERY = gql`
   {
@@ -40,7 +41,10 @@ export class DataService {
   private charactersSubject = new BehaviorSubject<Character[]>(null);
   characters$ = this.charactersSubject.asObservable();
 
-  constructor(private apollo: Apollo) {
+  constructor(
+    private apollo: Apollo,
+    private localStorageSvc: LocalStorageService
+  ) {
     this.getDataAPI();
   }
 
@@ -55,9 +59,21 @@ export class DataService {
           const { characters, episodes } = data;
 
           this.episodesSubject.next(episodes.results);
-          this.charactersSubject.next(characters.results);
+          this.parseCharactersData(characters.results);
         })
       )
       .subscribe();
+  }
+
+  private parseCharactersData(characters: Character[]): void {
+    const currentsFav = this.localStorageSvc.getFavoritesCharacters();
+    const newsFav = characters.map((character: Character) => {
+      const found = !!currentsFav.find(
+        (fav: Character) => fav.id === character.id
+      );
+      return { ...character, isFavorite: found };
+    });
+
+    this.charactersSubject.next(newsFav);
   }
 }
