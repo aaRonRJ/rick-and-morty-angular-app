@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
+
 import { DataService } from '@app/shared/services/data.service';
 
 @Component({
   selector: 'app-characters-list',
-  templateUrl: './characters-list.component.html',
+  template: `
+    <section class="character__list">
+      <app-character-card
+        *ngFor="let character of characters$ | async"
+        [character]="character"
+      ></app-character-card>
+    </section>
+  `,
   styleUrls: ['./characters-list.component.scss'],
 })
 export class CharactersListComponent {

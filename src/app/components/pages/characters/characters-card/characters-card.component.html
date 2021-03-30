@@ -1,9 +1,29 @@
 <article class="card">
-  <figure>
-    <img [src]="character.image" [alt]="character.name" />
-  </figure>
+  <a [routerLink]="['/character-details', character.id]" class="card__link">
+    <figure>
+      <img
+        rel="preload"
+        as="image"
+        width="300"
+        height="300"
+        [src]="character.image"
+        [alt]="character.name"
+      />
+    </figure>
+  </a>
 
   <div class="card__detail">
+    <figure class="card__favorite">
+      <img
+        (click)="toggleFavorite()"
+        rel="preload"
+        as="image"
+        width="30"
+        height="30"
+        src="assets/imgs/{{ getIcon() }}"
+        [alt]="character.name"
+      />
+    </figure>
     <h3>{{ character.name }}</h3>
     <ul class="card__list">
       <li><label class="table__label">Status:</label>{{ character.status }}</li>
