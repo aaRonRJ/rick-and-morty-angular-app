@@ -7,10 +7,10 @@ import { LocalStorageService } from '@app/shared/services/localStorage.service';
   selector: 'app-characters-list',
   template: `
     <section class="character__list">
-      <app-character-card
+      <app-characters-card
         *ngFor="let character of characters$ | async"
         [character]="character"
-      ></app-character-card>
+      ></app-characters-card>
     </section>
   `,
   styleUrls: ['./characters-list.component.scss'],

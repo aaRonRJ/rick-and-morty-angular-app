@@ -12,7 +12,7 @@
     </figure>
   </a>
 
-  <div class="card__detail">
+  <div class="card__details">
     <figure class="card__favorite">
       <img
         (click)="toggleFavorite()"
@@ -20,7 +20,7 @@
         as="image"
         width="30"
         height="30"
-        src="assets/imgs/{{ getIcon() }}"
+        src="/assets/imgs/{{ getIcon() }}"
         [alt]="character.name"
       />
     </figure>

@@ -17,5 +17,7 @@ import { DataService } from '@app/shared/services/data.service';
 export class EpisodesComponent {
   episodes$ = this.dataSvc.episodes$;
 
-  constructor(private dataSvc: DataService) {}
+    constructor(private dataSvc: DataService) {
+        console.log('Episodes ', this.dataSvc.episodes$);
+  }
 }
