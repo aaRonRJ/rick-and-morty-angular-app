@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
+
 import { gql, Apollo } from 'apollo-angular';
-import { BehaviorSubject } from 'rxjs';
-import { tap, take, pluck, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, take, pluck, withLatestFrom, mergeMap, find } from 'rxjs/operators';
+
 import {
   Character,
   DataResponse,
@@ -35,10 +37,10 @@ const QUERY = gql`
   providedIn: 'root',
 })
 export class DataService {
-  private episodesSubject = new BehaviorSubject<Episode[]>(null);
+  private episodesSubject = new BehaviorSubject<Episode[]>([]);
   episodes$ = this.episodesSubject.asObservable();
 
-  private charactersSubject = new BehaviorSubject<Character[]>(null);
+  private charactersSubject = new BehaviorSubject<Character[]>([]);
   characters$ = this.charactersSubject.asObservable();
 
   constructor(
@@ -94,7 +96,14 @@ export class DataService {
         })
       )
       .subscribe();
-  }
+    }
+
+    getCharacter(id: number): Observable<Character> {
+        return this.characters$.pipe(
+            mergeMap((characters: Character[]) => characters),
+            find((character: Character) => character?.id === id)
+        );
+    }
 
   private parseCharactersData(characters: Character[]): void {
     const currentsFav = this.localStorageSvc.getFavoritesCharacters();
