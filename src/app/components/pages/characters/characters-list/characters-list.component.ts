@@ -7,11 +7,20 @@ import { LocalStorageService } from '@app/shared/services/localStorage.service';
 @Component({
   selector: 'app-characters-list',
   template: `
+    <app-search></app-search>
     <section class="character__list" infiniteScroll (scrolled)="onScrollDown()">
-      <app-characters-card
-        *ngFor="let character of characters$ | async"
-        [character]="character"
-      ></app-characters-card>
+      <ng-container *ngIf="characters$ | async as characters; else showEmpty">
+        <app-characters-card
+          *ngFor="let character of characters"
+          [character]="character"
+        ></app-characters-card>
+      </ng-container>
+      <ng-template #showEmpty>
+        <div class="not-results">
+          <h1 class="not-results__title">Not results</h1>
+          <img src="assets/imgs/404.jpeg" alt="404" />
+        </div>
+      </ng-template>
       <button *ngIf="showButton" class="button" (click)="onScrollTop()">
         ⬆️
       </button>
